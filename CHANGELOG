@@ -1,0 +1,215 @@
+4.0.6
+
+* ?
+
+  * Don't test on ruby 2.1
+
+* Enhancements
+
+  * LockAndCacheMsgpack.cached?(*key_parts) to check if a value is cached
+
+4.0.5 / 2017-04-01
+
+* Enhancements
+
+  * allow dates and times in keys
+  * Test on ruby 2.3.0 and 2.4.1
+  * 2x faster key generation
+
+4.0.4 / 2016-04-11
+
+* Bug fixes
+
+  * Don't default to debug logging
+
+4.0.3 / 2016-04-11
+
+* Bug fixes
+
+  * Allow true or false in keys
+
+4.0.2 / 2016-04-11
+
+* Bug fixes
+
+  * When generating key, recurse into #lock_and_cache_key
+
+4.0.1 / 2016-04-11
+
+* Bug fixes
+
+  * Avoid deadlocks related to logging
+
+4.0.0 / 2016-04-11
+
+* Breaking changes
+
+  * The cache key generation I've always wanted: recursively call #id or #lock_and_cache_key
+
+3.0.1 / 2016-04-04
+
+* Enhancements
+
+  * Don't use deprecated Thread.exclusive
+
+3.0.0 / 2016-04-02
+
+* Breaking changes
+
+  * In context mode (when you `include LockAndCacheMsgpack`), really call #lock_and_cache_key or #id on the instance
+
+2.2.2 / 2015-12-18
+
+* Bug fixes
+
+  * Don't die if you pass a non-integer expires - round it
+
+2.2.1 / 2015-12-14
+
+* Bug fixes
+
+  * Construct key using the correct class name
+
+2.2.0 / 2015-11-15
+
+* Enhancements
+
+  * Increase default heartbeat expires to 32 seconds from 2 (which was too strict IMO)
+  * Allow setting heartbeat_expires: globally (LockAndCacheMsgpack.heartbeat_expires=) or per call
+  * Provide LockAndCacheMsgpack.locked?()
+
+2.1.1 / 2015-10-26
+
+* Bug fixes
+
+  * Blow up if you try to use standalone mode without a key
+
+2.1.0 / 2015-10-26
+
+* Enhancements
+
+  * Better documentation
+  * Standalone mode (LockAndCacheMsgpack.lock_and_cache([...]) {})
+  * Nulls can be set to expire sooner than non-null return values (`nil_expires`)
+
+2.0.2 / 2015-10-16
+
+* Bug fixes (?)
+
+  * Make sure cached values are valid marshal format (seen in the wild that they're nil)
+
+* Enhancements
+
+  * Use original redlock gem now that it supports extend
+
+2.0.1 / 2015-09-14
+
+* Bug fixes
+
+  * Don't explicitly kill the lock extender thread because that sometimes causes deadlocks (don't know why)
+
+2.0.0 / 2015-09-11
+
+* Breaking changes
+
+  * Stricter key digest - differentiates symbols and strings
+  * No more lock_expires or lock_spin options
+
+* Bug fixes
+
+  * Allow method names with non-word chars like #foo?
+
+* Enhancements
+
+  * heartbeats so that SIGKILL will effectively clear the lock
+  * #lock_and_cache_clear now clears lock too
+
+1.1.0 / 2015-08-07
+
+* Breaking changes
+
+  * Reduce default lock expiry to 1 day instead of weird 3 days
+
+* Enhancements
+
+  * Added :max_lock_wait option inspired by @leandromoreira
+
+1.0.3 / 2015-08-06
+
+* Enhancements
+
+  * More granular debug output
+
+1.0.2 / 2015-08-06
+
+* Bug fixes
+
+  * Put LockAndCacheMsgpack.flush back
+
+1.0.1 / 2015-08-06
+
+* Bug fixes
+
+  * Return value properly if lock was acquired but cached value immediately found
+
+* Enhancements
+
+  * Documentation
+
+1.0.0 / 2015-08-05
+
+* Enhancements
+
+  * Use Redis redlock http://redis.io/topics/distlock instead of Postgres advisory locks
+  * No more dependency on ActiveRecord or Postgres!
+
+0.1.2 / 2015-06-24
+
+* Enhancements
+
+  * Add :expires option in seconds
+
+0.1.1 / 2015-02-04
+
+* Enhancements
+
+  * Clear individual cached things with #lock_and_cache_clear
+
+0.1.0 / 2015-01-22
+
+* Breaking changes
+
+  * Redis only
+  * Now you use it inside methods (like Rails.cache.fetch) instead of outside (like cache_method)
+
+* Enhancements
+
+  * Way simpler, no dependency on CacheMethod
+
+0.0.5 / 2014-12-12
+
+* Enhancements
+
+  * ENV['LOCK_AND_CACHE_DEBUG'] == 'true' debug output to $stderr
+
+0.0.4 / 2014-12-12
+
+* Bug fixes
+
+  * Pass arguments while caching method results
+
+0.0.3 / 2014-12-12
+
+* Enhancements
+
+  * Save a trip to the database if something is already cached
+
+0.0.2 / 2014-12-11
+
+* Bug fixes
+
+  * Gem name is activerecord
+
+0.0.1 / 2014-12-11
+
+initial release!
