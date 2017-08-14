@@ -23,16 +23,20 @@ module LockAndCacheMsgpack
 
   class TimeoutWaitingForLock < StandardError; end
 
-  # @param redis_connection [Redis] A redis connection to be used for lock and cached value storage
+  # @param redis_connection [Redis || lambda] A redis connection to be used for lock and cached value storage. Lazy evaluated if wrapped in a lambda
   def LockAndCacheMsgpack.storage=(redis_connection)
-    raise "only redis for now" unless redis_connection.class.to_s == 'Redis'
-    @storage = redis_connection
-    @lock_manager = Redlock::Client.new [redis_connection], retry_count: 1
+    @redis_connection = redis_connection
   end
 
   # @return [Redis] The redis connection used for lock and cached value storage
   def LockAndCacheMsgpack.storage
-    @storage
+    @storage ||=
+      begin
+        raise "only redis for now" unless redis_connection.class.to_s == 'Redis'
+        connection = @redis_connection.respond_to?(:call) ? @redis_connection.call : @redis_connection
+        @lock_manager = Redlock::Client.new [connection], retry_count: 1
+        connection
+      end
   end
 
   # @param logger [Logger] A logger.
