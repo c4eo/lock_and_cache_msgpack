@@ -4,7 +4,7 @@ require 'lock_and_cache_msgpack'
 require 'timeout'
 
 require 'redis'
-LockAndCacheMsgpack.storage = Redis.new
+LockAndCacheMsgpack.storage = -> { Redis.new }
 
 require 'thread/pool'
 

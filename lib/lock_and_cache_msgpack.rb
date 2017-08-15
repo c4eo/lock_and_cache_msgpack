@@ -32,8 +32,8 @@ module LockAndCacheMsgpack
   def LockAndCacheMsgpack.storage
     @storage ||=
       begin
-        raise "only redis for now" unless @redis_connection.class.to_s == 'Redis'
-        connection = @redis_connection.respond_to?(:call) ? @redis_connection.call : @redis_connection
+        connection = @redis_connection.class == Proc ? @redis_connection.call : @redis_connection
+        raise "only redis for now" unless connection.class.to_s == 'Redis'
         @lock_manager = Redlock::Client.new [connection], retry_count: 1
         connection
       end

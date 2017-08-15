@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lock_and_cache_msgpack (4.0.6)
+    lock_and_cache_msgpack (4.0.7.pre4)
       activesupport
       msgpack (~> 1.1.0)
       redis
