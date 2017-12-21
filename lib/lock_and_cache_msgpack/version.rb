@@ -1,3 +1,3 @@
 module LockAndCacheMsgpack
-  VERSION = '4.0.7.pre4'
+  VERSION = '4.1.0'
 end

@@ -29,6 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'thread'
-  spec.add_development_dependency 'yard'
+  spec.add_development_dependency 'yard', '~> 0.9.11'
   spec.add_development_dependency 'redcarpet'
 end

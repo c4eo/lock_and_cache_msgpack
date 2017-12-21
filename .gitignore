@@ -1,0 +1,18 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+
+# rspec failure tracking
+.rspec_status
+
+.byebug_history
+vcr_log.log
+
+# contains api secret keys for gem development and test
+/lib/api_keys.rb
+.DS_Store
